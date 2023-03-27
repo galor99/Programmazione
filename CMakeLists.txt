@@ -3,4 +3,4 @@ project(progetto)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(progetto main.cpp)
+add_executable(progetto main.cpp Task.cpp Task.h Date.cpp Date.h TodoList.cpp TodoList.h)
