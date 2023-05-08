@@ -10,7 +10,6 @@ private:
     int day, month, year;
 
 public:
-    explicit Date() : day(9999), month(9999), year(9999) {}
     Date(int day, int month, int year);
 
     int getDay() const;

@@ -31,6 +31,14 @@ void Task::setPriority(bool priority) {
     Task::priority = priority;
 }
 
+const Date &Task::getDueDate() const {
+    return dueDate;
+}
+
+void Task::setDueDate(const Date &dueDate) {
+    Task::dueDate = dueDate;
+}
+
 
 void Task::viewTask() const {       //metodo per visualizzare un Task
     std::cout << description;
@@ -76,7 +84,7 @@ void Task::editTask(int choice) {
             std::getline(std::cin, input);
 
             if(input.empty() == true){
-                dueDate = Date();
+                dueDate = Date(9999, 9999, 9999);
             } else{
                 std::istringstream ss(input);
                 char delimiter;
@@ -86,3 +94,5 @@ void Task::editTask(int choice) {
             break;
     }
 }
+
+

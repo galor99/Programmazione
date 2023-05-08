@@ -37,29 +37,40 @@ void Date::setYear(int year) {
 
 
 void Date::isValidDate(int d, int m, int y) {      //Metodo per verificare se la data inserita è valida
-    if(d < 1 || d > 31 || m < 1 || m > 12 || y < 0){
-        throw std::invalid_argument("Data non valida");
-    }
-
-    if(m == 2){     //Controlli per il mese di febbraio
-        int max_day = 28;
-
-        if((y % 4 == 0 && y % 100 != 0) || y % 400 == 0){
-            max_day = 29;
-        }
-
-        if(d > max_day){
+    if(d != 9999 && m != 9999 && y != 9999) {
+        if (d < 1 || d > 31 || m < 1 || m > 12 || y < 0) {
             throw std::invalid_argument("Data non valida");
         }
-    }
 
-    if((m == 4 || m == 6 || m == 9 || m == 11) && d > 30){        //Controllo per i mesi con 30 giorni
-        throw std::invalid_argument("Data non valida");
-    }
+        if (m == 2) {     //Controlli per il mese di febbraio
+            int max_day = 28;
 
-    day = d;
-    month = m;
-    year = y;
+            if ((y % 4 == 0 && y % 100 != 0) || y % 400 == 0) {
+                max_day = 29;
+            }
+
+            if (d > max_day) {
+                throw std::invalid_argument("Data non valida");
+            }
+        }
+
+        if ((m == 4 || m == 6 || m == 9 || m == 11) && d > 30) {        //Controllo per i mesi con 30 giorni
+            throw std::invalid_argument("Data non valida");
+        }
+
+        time_t t = time(nullptr);           //Controllo se la data inserita e' antecedente a quella attuale
+        tm tm = *localtime(&t);
+        int currentYear = tm.tm_year + 1900;
+        int currentMonth = tm.tm_mon + 1;
+        int currentDay = tm.tm_mday;
+        if (y < currentYear || (y == currentYear && m < currentMonth) || (y == currentYear && m == currentMonth && d < currentDay)) {
+            throw std::invalid_argument("Data non valida: la data inserita e' antecedente a quella di oggi");
+        }
+
+        day = d;
+        month = m;
+        year = y;
+    }
 }
 
 

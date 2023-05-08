@@ -1,48 +1,34 @@
 #include <iostream>
 #include <sstream>
+#include <fstream>
 #include "TodoList.h"
 
 
 int main() {
     std::string desc, input;
-    int choice, choice2, d, m, y;
-    bool prio = false;
+    int choice, choice2;
 
     TodoList mainTodoList = TodoList();
 
     std::cout << "Benvenuto!" << std::endl;
 
-    if(mainTodoList.list.empty()==true){
-        std::cout << "La tua lista di cose da fare e' vuota!" << std::endl << "Inizia inserendo il tuo primo Task!" << std::endl << std::endl;
-
-        std::cout << "Dai una descrizione al tuo Task: ";
-        std::getline(std::cin, desc);
-        std::cout << std::endl;
-
-        std::cout << "Il tuo Task ha un'alta priorita'?" << std::endl << "0) No" << std::endl << "1) Si" << std::endl;       //TODO fare controllo della scelta entro il range
-        std::cin >> choice2;
-        if(choice2==1) prio=true;
-
-        std::cout << "Inserisci la data di scadenza del Task nel formato gg/mm/aaaa (altrimenti premi invio per saltare)" << std::endl;
-        std::cin.ignore();
-        std::getline(std::cin, input);
-
-        if(input.empty() == true){
-            Task* t = new Task(desc, prio);
-            mainTodoList.addTask(t);
-            std::cout << std::endl << std::endl;
-        } else{
-            std::istringstream ss(input);
-            char delimiter;
-            ss >> d >> delimiter >> m >> delimiter >> y;
-            Date dueDate(d, m, y);
-            Task* t = new Task(desc, prio, dueDate);
-            mainTodoList.addTask(t);
-        }
-
+    std::ifstream file("list.txt");
+    if(file.peek() != std::ifstream::traits_type::eof()) {       //Controlla se il file non e' vuoto
+        file.close();
+        mainTodoList.readFile();
     }
 
     do{
+        std::ifstream file("list.txt");
+        if(file.peek() == std::ifstream::traits_type::eof()){       //Controlla se il file e' vuoto
+            file.close();
+
+            std::cout << "La tua lista di cose da fare e' vuota!" << std::endl << "Inizia inserendo il tuo primo Task!" << std::endl;
+            mainTodoList.addTask();
+            mainTodoList.updateFile();
+
+        }
+
         std::cout << "Lista delle cose da fare:" << std::endl;
         mainTodoList.viewList();
         std::cout << std::endl;
@@ -57,32 +43,8 @@ int main() {
         switch (choice) {
 
             case 1:
-                std::cout << std::endl << "Dai una descrizione al tuo Task: ";
-                std::cin.ignore();
-                std::getline(std::cin, desc);
-                std::cout << std::endl;
-
-                std::cout << "Il tuo Task ha un'alta priorita'?" << std::endl << "0) No" << std::endl << "1) Si" << std::endl;       //TODO fare controllo della scelta entro il range
-                std::cin >> choice2;
-                if(choice2==1) prio=true;
-
-                std::cout << "Inserisci la data di scadenza del Task nel formato gg/mm/aaaa (altrimenti premi invio per saltare)" << std::endl;
-                std::cin.ignore();
-                std::getline(std::cin, input);
-
-                if(input.empty() == true){
-                    Task* t = new Task(desc, prio);
-                    mainTodoList.addTask(t);
-                    std::cout << std::endl << std::endl;
-                } else{
-                    std::istringstream ss(input);
-                    char delimiter;
-                    ss >> d >> delimiter >> m >> delimiter >> y;
-                    Date dueDate(d, m, y);
-                    Task* t = new Task(desc, prio, dueDate);
-                    mainTodoList.addTask(t);
-                }
-
+                mainTodoList.addTask();
+                mainTodoList.updateFile();
                 break;
 
             case 2:
@@ -92,6 +54,8 @@ int main() {
                 std::cout << "Inserisci l'indice del Task da rimuovere dalla lista: ";
                 std::cin >> choice2;
                 mainTodoList.removeTask(choice2);
+                mainTodoList.updateFile();
+                //mainTodoList.sortByDates();       //TODO non funziona
                 break;
 
             case 3:
@@ -116,6 +80,8 @@ int main() {
                 std::cout << std::endl << std::endl;
 
                 (*it)->editTask(choice2);
+                mainTodoList.updateFile();
+                //mainTodoList.sortByDates();       //TODO non funziona
                 break;
 
         }

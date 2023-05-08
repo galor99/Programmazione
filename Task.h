@@ -7,6 +7,7 @@
 
 #include <string>
 #include "Date.h"
+#include <fstream>
 
 
 class Task {
@@ -16,7 +17,8 @@ private:
     Date dueDate;
 
 public:
-    explicit Task(std::string description, bool priority=false, Date dueDate=Date(), bool completed=false) : description(description), priority(priority), dueDate(dueDate), completed(completed) {}
+    //Task(std::string description, Date dueDate, bool priority=false, bool completed=false) : description(description), dueDate(dueDate), priority(priority), completed(completed) {}
+    Task(std::string desc, Date dd, bool prio = false, bool comp = false) : description(desc), dueDate(dd), priority(prio), completed(comp) {}
     virtual ~Task() {}
 
     const std::string &getDescription() const;
@@ -25,6 +27,8 @@ public:
     void setCompleted(bool completed);
     bool isPriority() const;
     void setPriority(bool priority);
+    const Date &getDueDate() const;
+    void setDueDate(const Date &dueDate);
 
     void viewTask() const;      //metodo per visualizzare un Task
     void editTask(int choice);

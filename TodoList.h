@@ -16,9 +16,11 @@ public:
     TodoList() {}
     virtual ~TodoList() {}
 
-    void addTask(Task* t);
+    void addTask();
     void removeTask(int pos);
     void viewList() const;
+    void updateFile();
+    void readFile();
 };
 
 
