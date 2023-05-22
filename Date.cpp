@@ -6,7 +6,7 @@
 #include "Date.h"
 
 Date::Date(int day, int month, int year) : day(day), month(month), year(year) {
-    isValidDate(day, month, year);
+    isValidDate();
 }
 
 
@@ -36,26 +36,26 @@ void Date::setYear(int year) {
 
 
 
-void Date::isValidDate(int d, int m, int y) {      //Metodo per verificare se la data inserita è valida
-    if(d != 9999 && m != 9999 && y != 9999) {
-        if (d < 1 || d > 31 || m < 1 || m > 12 || y < 0) {
-            throw std::invalid_argument("Data non valida");
+bool Date::isValidDate() {      //Metodo per verificare se la data inserita è valida
+    if(day != 9999 && month != 9999 && year != 9999) {
+        if (day < 1 || day > 31 || month < 1 || month > 12 || year < 0) {
+            return false;
         }
 
-        if (m == 2) {     //Controlli per il mese di febbraio
-            int max_day = 28;
+        if (month == 2) {     //Controlli per il mese di febbraio
+            int maxDay = 28;
 
-            if ((y % 4 == 0 && y % 100 != 0) || y % 400 == 0) {
-                max_day = 29;
+            if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
+                maxDay = 29;
             }
 
-            if (d > max_day) {
-                throw std::invalid_argument("Data non valida");
+            if (day > maxDay) {
+                return false;
             }
         }
 
-        if ((m == 4 || m == 6 || m == 9 || m == 11) && d > 30) {        //Controllo per i mesi con 30 giorni
-            throw std::invalid_argument("Data non valida");
+        if ((month == 4 || month == 6 || month == 9 || month == 11) && day > 30) {        //Controllo per i mesi con 30 giorni
+            return false;
         }
 
         time_t t = time(nullptr);           //Controllo se la data inserita e' antecedente a quella attuale
@@ -63,13 +63,11 @@ void Date::isValidDate(int d, int m, int y) {      //Metodo per verificare se la
         int currentYear = tm.tm_year + 1900;
         int currentMonth = tm.tm_mon + 1;
         int currentDay = tm.tm_mday;
-        if (y < currentYear || (y == currentYear && m < currentMonth) || (y == currentYear && m == currentMonth && d < currentDay)) {
-            throw std::invalid_argument("Data non valida: la data inserita e' antecedente a quella di oggi");
+        if (year < currentYear || (year == currentYear && month < currentMonth) || (year == currentYear && month == currentMonth && day < currentDay)) {
+            //throw std::invalid_argument("Data non valida: la data inserita e' antecedente a quella di oggi");
+            return false;
         }
-
-        day = d;
-        month = m;
-        year = y;
+        return true;
     }
 }
 

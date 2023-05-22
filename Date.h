@@ -13,18 +13,13 @@ public:
     Date(int day, int month, int year);
 
     int getDay() const;
-
     void setDay(int day);
-
     int getMonth() const;
-
     void setMonth(int month);
-
     int getYear() const;
-
     void setYear(int year);
 
-    void isValidDate(int d, int m, int y);     //Metodo per verificare se la data inserita è valida
+    bool isValidDate();     //Metodo per verificare se la data inserita è valida
     void viewDate() const;        //Metodo per stampare la data
 
     bool operator<(const Date& d) const;
