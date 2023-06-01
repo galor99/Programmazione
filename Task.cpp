@@ -11,32 +11,16 @@ const std::string &Task::getDescription() const {
     return description;
 }
 
-void Task::setDescription(const std::string &description) {
-    Task::description = description;
-}
-
 bool Task::isCompleted() const {
     return completed;
-}
-
-void Task::setCompleted(bool completed) {
-    Task::completed = completed;
 }
 
 bool Task::isPriority() const {
     return priority;
 }
 
-void Task::setPriority(bool priority) {
-    Task::priority = priority;
-}
-
 const Date &Task::getDueDate() const {
     return dueDate;
-}
-
-void Task::setDueDate(const Date &dueDate) {
-    Task::dueDate = dueDate;
 }
 
 
@@ -49,7 +33,7 @@ void Task::viewTask() const {       //metodo per visualizzare un Task
     std::cout << std::endl;
 }
 
-void Task::editTask(int choice) {
+void Task::editTask(int choice) {       //metodo per la modifica degli attributi di un Task
     std::string newDesc;
     std::string input;
     int d , m, y;
@@ -79,18 +63,28 @@ void Task::editTask(int choice) {
             break;
 
         case 4:     //Modifica della data di scadenza
-            std::cout << "Inserisci la nuova data di scadenza del Task nel formato gg/mm/aaaa (altrimenti premi invio per saltare)" << std::endl;
             std::cin.ignore();
-            std::getline(std::cin, input);
+            bool valid;
+            do {
+                std::cout << "Inserisci la nuova data di scadenza del Task nel formato gg/mm/aaaa (altrimenti premi invio per saltare)" << std::endl;
 
-            if(input.empty() == true){
-                dueDate = Date(9999, 9999, 9999);
-            } else{
-                std::istringstream ss(input);
-                char delimiter;
-                ss >> d >> delimiter >> m >> delimiter >> y;
-                dueDate = Date(d, m, y);
-            }
+                std::getline(std::cin, input);
+
+                if (input.empty() == true) {
+                    dueDate = Date(9999, 9999, 9999);
+                    valid = true;
+                } else {
+                    std::istringstream ss(input);
+                    char delimiter;
+                    ss >> d >> delimiter >> m >> delimiter >> y;
+                    try{
+                        Date dd = Date(d, m, y);
+                        valid = dd.isValidDate(d, m, y);
+                    } catch (const std::invalid_argument& e) {
+                        std::cout << e.what() << std::endl;
+                    }
+                }
+            } while(valid != true);
             break;
     }
 }

@@ -10,19 +10,16 @@ private:
     int day, month, year;
 
 public:
+    Date() {}
     Date(int day, int month, int year);
 
     int getDay() const;
-    void setDay(int day);
     int getMonth() const;
-    void setMonth(int month);
     int getYear() const;
-    void setYear(int year);
 
-    bool isValidDate();     //Metodo per verificare se la data inserita è valida
+    bool isValidDate(int day, int month, int year);     //Metodo per verificare se la data inserita è valida
     void viewDate() const;        //Metodo per stampare la data
 
-    bool operator<(const Date& d) const;
 };
 
 

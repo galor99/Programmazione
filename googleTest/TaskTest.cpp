@@ -5,7 +5,7 @@
 #include <gtest/gtest.h>
 #include "../Task.h"
 
-TEST(Task, ViewTaskTest){
+TEST(Task, ViewTaskTest){       //Test sulla corretta visualizzazione di un task
     Task t("prova", Date(20, 11, 2026), true);
 
     std::stringstream output;
@@ -17,7 +17,7 @@ TEST(Task, ViewTaskTest){
     ASSERT_EQ(output.str(), expectedOutput);
 }
 
-TEST(Task, EditTaskTest){
+TEST(Task, EditTaskTest){       //Test sulla modifica di un test
     Task t("prova", Date(10, 10, 2025), true);
 
     t.editTask(1);      //Test sulla corretta modifica della completezza

@@ -6,18 +6,21 @@
 #include "../Date.h"
 
 TEST(Date, ValidDateTest){      //Test sulla validita' della data
-    Date d(12, 3, 2025);        //Data valida
-    EXPECT_TRUE(d.isValidDate());
+    bool valid;
+    Date date = Date();     //Data valida
+    Date date2 = Date();       //Data non valida
+    Date date3 = Date();        //Data non valida
 
-    Date d2(20, 15, 2023);      //Data non valida
-    EXPECT_FALSE(d2.isValidDate());
-
-    Date d3(10, 5, 1980);       //data non valida
-    EXPECT_FALSE(d3.isValidDate());
+    valid = date.isValidDate(12, 3 ,2025);
+    ASSERT_TRUE(valid);
+    valid = date2.isValidDate(20, 15, 2023);
+    ASSERT_FALSE(valid);
+    valid = date3.isValidDate(10, 5, 1980);
+    ASSERT_FALSE(valid);
 }
 
 TEST(Date, ViewDateTest){       //Test sulla corretta visualizzazione della data
-    Date d(17, 12, 2027);
+    Date d = Date(17, 12, 2027);
 
     std::stringstream output;
     std::streambuf* oldCoutBuffer = std::cout.rdbuf(output.rdbuf());

@@ -10,17 +10,23 @@
 
 
 class TodoList {
+private:
+    std::string name;
 public:
     std::list<Task*> list;
 
-    TodoList() {}
+    TodoList(std::string name = "Todolist") : name(name) {}
     virtual ~TodoList() {}
 
-    void addTask();
-    void removeTask(int pos);
-    void viewList() const;
-    void updateFile();
-    void readFile();
+    const std::string &getName() const;
+
+    void addTask();     //Metodo per aggiungere un task alla lista
+    void removeTask(int pos);       //Metodo per rimuovere un task dalla lista
+    void viewList() const;      //Metodo per visualizzare tutti i task della lista
+    void updateFile();      //Metodo per aggiornare il file
+    void readFile();        //Metodo per leggere il file
+    int getListSize();      //Metodo che ritorna il numero di elementi della lista
+    int getTasksToComplete();       //Metodo che ritorna quanti Task devono essere completati
 };
 
 
