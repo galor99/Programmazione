@@ -11,10 +11,10 @@ TEST(Task, ViewTaskTest){       //Test sulla corretta visualizzazione di un task
     std::stringstream output;
     std::streambuf* oldCoutBuffer = std::cout.rdbuf(output.rdbuf());
     t.viewTask();
-    std::cout.rdbuf(oldCoutBuffer);
+    std::cout.rdbuf(oldCoutBuffer);     //prendo l'output generato dal metodo
 
     std::string expectedOutput = "prova | Data di scadenza: 20/11/2026 | PRIORITA' ALTA | Da fare\n";
-    ASSERT_EQ(output.str(), expectedOutput);
+    ASSERT_EQ(output.str(), expectedOutput);        //confronto l'output generato dal metodo con quello previsto
 }
 
 TEST(Task, EditTaskTest){       //Test sulla modifica di un test

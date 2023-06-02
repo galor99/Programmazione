@@ -5,7 +5,7 @@
 #include <iostream>
 #include "Date.h"
 
-Date::Date(int day, int month, int year) {
+Date::Date(int day, int month, int year) {      //Costruttore che fa partire il metodo isValidDate per verificare se i valori inseriti sono validi, nel caso non lo siano lancia un eccezione
     bool valid = isValidDate(day, month, year);
     if (valid == false)
         throw std::invalid_argument("La data inserita non e' valida, riprova!");
@@ -30,7 +30,7 @@ int Date::getYear() const {
 
 bool Date::isValidDate(int day, int month, int year) {      //Metodo per verificare se la data inserita è valida
     if(day != 9999 && month != 9999 && year != 9999) {
-        if (day < 1 || day > 31 || month < 1 || month > 12 || year < 0) {
+        if (day < 1 || day > 31 || month < 1 || month > 12 || year < 0) {       //Controllo su range dei valori
             return false;
         }
 

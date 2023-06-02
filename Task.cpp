@@ -70,7 +70,7 @@ void Task::editTask(int choice) {       //metodo per la modifica degli attributi
 
                 std::getline(std::cin, input);
 
-                if (input.empty() == true) {
+                if (input.empty() == true) {        //se non si e' inserito nulla
                     dueDate = Date(9999, 9999, 9999);
                     valid = true;
                 } else {

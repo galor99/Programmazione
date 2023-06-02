@@ -36,7 +36,7 @@ void TodoList::addTask() {      //Metodo per aggiungere un task alla lista
         std::cout << "Inserisci la data di scadenza del Task nel formato gg/mm/aaaa (altrimenti premi invio per saltare)" << std::endl;
         std::getline(std::cin, input);
 
-        if (input.empty() == true) {
+        if (input.empty() == true) {        //Se non si e' inserito niente
             Task *t = new Task(desc, Date(9999, 9999, 9999), prio);
             list.push_back(t);
             std::cout << std::endl << std::endl;

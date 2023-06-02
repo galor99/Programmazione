@@ -14,17 +14,17 @@ int main() {
     std::cout << "Benvenuto!" << std::endl;
 
     std::ifstream file("list.txt");
-    if(file.peek() != std::ifstream::traits_type::eof()) {       //Controlla se il file non e' vuoto
+    if(file.peek() != std::ifstream::traits_type::eof()) {       //Controlla se il file non e' vuoto, nel caso non lo sia legge i dati al suo interno
         file.close();
         mainTodoList.readFile();
     }
 
     do{
         std::ifstream file("list.txt");
-        if(file.peek() == std::ifstream::traits_type::eof()){       //Controlla se il file e' vuoto
+        if(file.peek() == std::ifstream::traits_type::eof()){       //Se il file e' vuoto, chiede di inserire il primo task alla lista
             file.close();
 
-            std::cout << "La tua lista di cose da fare e' vuota!" << std::endl << "Inizia inserendo il tuo primo Task!" << std::endl;
+            std::cout << "La tua " << mainTodoList.getName() << "e' vuota!" << std::endl << "Inizia inserendo il tuo primo Task!" << std::endl;
             mainTodoList.addTask();
             mainTodoList.updateFile();
 
@@ -43,7 +43,7 @@ int main() {
 
             std::cin >> choice;
 
-            if (choice < 0 || choice > 3) {
+            if (choice < 0 || choice > 3) {     //controllo scelta non valida
                 valid = false;
                 std::cout << "La scelta inserita non e' valida, riprova!" << std::endl;
             } else {
@@ -53,12 +53,12 @@ int main() {
 
         switch (choice) {
 
-            case 1:
+            case 1:     //aggiunta di un task alla lista
                 mainTodoList.addTask();
                 mainTodoList.updateFile();
                 break;
 
-            case 2:
+            case 2:     //rimozione di un task dalla lista
                 std::cout << std::endl << "Lista delle cose da fare:" << std::endl;
                 mainTodoList.viewList();
                 std::cout << std::endl;
@@ -77,7 +77,7 @@ int main() {
                 mainTodoList.updateFile();
                 break;
 
-            case 3:
+            case 3:     //modifica di un task della lista
                 std::cout << std::endl << "Lista delle cose da fare:" << std::endl;
                 mainTodoList.viewList();
                 std::cout << std::endl;
@@ -94,6 +94,7 @@ int main() {
 
                 auto it = mainTodoList.list.begin();
                 std::advance(it,choice2);
+                std::cout << std::endl;
                 (*it)->viewTask();
 
                 do{
