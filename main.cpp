@@ -24,7 +24,7 @@ int main() {
         if(file.peek() == std::ifstream::traits_type::eof()){       //Se il file e' vuoto, chiede di inserire il primo task alla lista
             file.close();
 
-            std::cout << "La tua " << mainTodoList.getName() << "e' vuota!" << std::endl << "Inizia inserendo il tuo primo Task!" << std::endl;
+            std::cout << "La tua " << mainTodoList.getName() << " e' vuota!" << std::endl << "Inizia inserendo il tuo primo Task!" << std::endl;
             mainTodoList.addTask();
             mainTodoList.updateFile();
 
