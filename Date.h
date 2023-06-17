@@ -9,6 +9,8 @@ class Date {
 private:
     int day, month, year;
 
+    bool isValidDate(int day, int month, int year);     //Metodo per verificare se la data inserita è valida
+
 public:
     Date(int day, int month, int year);
 
@@ -16,7 +18,6 @@ public:
     int getMonth() const;
     int getYear() const;
 
-    bool isValidDate(int day, int month, int year);     //Metodo per verificare se la data inserita è valida
     std::string toString() const;      //Metodo per convertire gli attributi in un unica stringa
 
 };
