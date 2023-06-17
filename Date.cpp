@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include <sstream>
 #include "Date.h"
 
 Date::Date(int day, int month, int year) {      //Costruttore che fa partire il metodo isValidDate per verificare se i valori inseriti sono validi, nel caso non lo siano lancia un eccezione
@@ -62,9 +63,10 @@ bool Date::isValidDate(int day, int month, int year) {      //Metodo per verific
     }
 }
 
-
-void Date::viewDate() const {     //Metodo per stampare la data
-    std::cout << " | Data di scadenza: " << day << "/" << month << "/" << year;
+std::string Date::toString() const {       //Metodo per convertire gli attributi in un unica stringa
+    std::stringstream ss;
+    ss << day << "/" << month << "/" << year;
+    return ss.str();
 }
 
 

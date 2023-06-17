@@ -18,15 +18,16 @@ private:
 
 public:
     Task(const std::string& desc, Date dd, bool prio = false, bool comp = false) : description(desc), dueDate(dd), priority(prio), completed(comp) {}
-    virtual ~Task() {}
 
     const std::string &getDescription() const;
     bool isCompleted() const;
     bool isPriority() const;
+    void setPriority(bool priority);
     const Date &getDueDate() const;
 
-    void viewTask() const;      //metodo per visualizzare un Task
-    void editTask(int choice);      //metodo per la modifica degli attributi di un Task
+    void editDescriprion(std::string& newDesc);
+    void editDueDate(Date newDueDate);
+    std::string toString() const;       //Metodo per convertire gli attributi in un unica stringa
 };
 
 

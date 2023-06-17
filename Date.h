@@ -10,7 +10,6 @@ private:
     int day, month, year;
 
 public:
-    Date() {}
     Date(int day, int month, int year);
 
     int getDay() const;
@@ -18,7 +17,7 @@ public:
     int getYear() const;
 
     bool isValidDate(int day, int month, int year);     //Metodo per verificare se la data inserita è valida
-    void viewDate() const;        //Metodo per stampare la data
+    std::string toString() const;      //Metodo per convertire gli attributi in un unica stringa
 
 };
 

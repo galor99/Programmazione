@@ -8,21 +8,24 @@
 TEST(Task, ViewTaskTest){       //Test sulla corretta visualizzazione di un task
     Task t("prova", Date(20, 11, 2026), true);
 
-    std::stringstream output;
-    std::streambuf* oldCoutBuffer = std::cout.rdbuf(output.rdbuf());
-    t.viewTask();
-    std::cout.rdbuf(oldCoutBuffer);     //prendo l'output generato dal metodo
+    std::string s = t.toString();
 
-    std::string expectedOutput = "prova | Data di scadenza: 20/11/2026 | PRIORITA' ALTA | Da fare\n";
-    ASSERT_EQ(output.str(), expectedOutput);        //confronto l'output generato dal metodo con quello previsto
+    std::string expectedOutput = "prova | 20/11/2026 | ALTA PRIORITA' ";
+    ASSERT_EQ(s, expectedOutput);        //confronto l'output generato dal metodo con quello previsto
 }
 
-TEST(Task, EditTaskTest){       //Test sulla modifica di un test
+TEST(Task, editDescriptionTest){        //Test sulla modifica della descrizione di un task
     Task t("prova", Date(10, 10, 2025), true);
+    std::string s = "prova2";
+    t.editDescriprion(s);
+    ASSERT_EQ(s, t.getDescription());
+}
 
-    t.editTask(1);      //Test sulla corretta modifica della completezza
-    ASSERT_EQ(true, t.isCompleted());
-
-    t.editTask(3);      //Test sulla corretta modifica della priorita'
-    ASSERT_EQ(false, t.isPriority());
+TEST(Task, editDueDateTest){        //Test sulla modifica della data di un task
+    Task t("prova", Date(10, 10, 2025), true);
+    Date d = Date(20, 12, 2028);
+    t.editDueDate(d);
+    ASSERT_EQ(20, t.getDueDate().getDay());     //Verifico se il giorno e' stato cambiato
+    ASSERT_EQ(12, t.getDueDate().getMonth());       //Verifico se il mese e' stato cambiato
+    ASSERT_EQ(2028, t.getDueDate().getYear());      //Verifico se l'anno e' stato cambiato
 }

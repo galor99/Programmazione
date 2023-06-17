@@ -5,62 +5,9 @@
 #include "TodoList.h"
 #include <iostream>
 #include <sstream>
-#include <limits>
 
-void TodoList::addTask() {      //Metodo per aggiungere un task alla lista
-    std::string desc, input;
-    int choice, d, m, y;
-    bool prio, valid;
-
-    std::cout << std::endl << "Dai una descrizione al tuo Task: ";
-    std::cin >> std::ws;
-    std::getline(std::cin, desc);
-    std::cout << std::endl;
-
-    do{
-        std::cout << "Il tuo Task ha un'alta priorita'?" << std::endl << "0) No" << std::endl << "1) Si" << std::endl;
-        std::cin >> choice;
-        if(choice < 0 || choice > 1){
-            std::cout << "Hai inserito un valore non valido, riprova!" << std::endl;
-            valid = false;
-        } else{
-            valid = true;
-        }
-        if(choice==1) prio=true;
-        else prio=false;
-    } while(valid != true);
-
-    std::cin.ignore();
-
-    do {
-        std::cout << "Inserisci la data di scadenza del Task nel formato gg/mm/aaaa (altrimenti premi invio per saltare)" << std::endl;
-        std::getline(std::cin, input);
-
-        if (input.empty() == true) {        //Se non si e' inserito niente
-            Task *t = new Task(desc, Date(9999, 9999, 9999), prio);
-            list.push_back(t);
-            std::cout << std::endl << std::endl;
-            valid = true;
-        } else {
-            std::istringstream ss(input);
-            char delimiter;
-            ss >> d >> delimiter >> m >> delimiter >> y;
-            try{
-                valid = true;
-                Date dueDate = Date(d, m, y);
-                if(valid == true) {
-                    Task *t = new Task(desc, dueDate, prio);
-                    list.push_back(t);
-                }
-
-            } catch (const std::invalid_argument& e) {
-                std::cout << e.what() << std::endl;
-                valid = false;
-            }
-        }
-    } while(valid != true);
-
-    std::cout << "Il Task e' stato aggiunto correttamente!" << std::endl << std::endl;
+void TodoList::addTask(Task* t) {      //Metodo per aggiungere un task alla lista
+    list.push_back(t);
 
 }
 
@@ -71,13 +18,15 @@ void TodoList::removeTask(int pos) {        //Metodo per rimuovere un task dalla
     std::cout << std::endl << "Il Task e' stato rimosso correttamente!" << std::endl << std::endl;
 }
 
-void TodoList::viewList() const {       //Metodo per visualizzare tutti i task della lista
+std::string TodoList::toString() const {       //Metodo per convertire gli attributi in un unica stringa
+    std::stringstream ss;
     int c=0;
     for(auto it = list.begin(); it != list.end(); it++){
-        std::cout << c << " | ";
-        (*it)->viewTask();
+        ss << "\n" << c << " | ";
+        ss << (*it)->toString();
         c++;
     }
+    return ss.str();
 }
 
 void TodoList::updateFile(){        //Metodo per aggiornare il file
@@ -133,6 +82,18 @@ int TodoList::getTasksToComplete() {        //Metodo che ritorna quanti Task dev
     return c;
 }
 
+void TodoList::completed(int pos) {     //Metodo che rimuove dalla lista un task completato
+    removeTask(pos);
+    std::cout << "Il task e' stato completato!" << std::endl << std::endl;
+}
+
+
 const std::string &TodoList::getName() const {
     return name;
 }
+
+const std::list<Task *> &TodoList::getList() const {
+    return list;
+}
+
+
