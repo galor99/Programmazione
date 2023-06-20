@@ -235,7 +235,7 @@ int main() {
                         std::cin.ignore();
                         std::getline(std::cin, desc);
                         std::cout << std::endl;
-                        (*it)->editDescriprion(desc);
+                        (*it)->editDescription(desc);
                         std::cout << "La descrizione e' stata modificata correttamente!" << std::endl;
                         mainTodoList.updateFile();
                         break;

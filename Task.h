@@ -25,8 +25,8 @@ public:
     void setPriority(bool priority);
     const Date &getDueDate() const;
 
-    void editDescriprion(std::string& newDesc);
-    void editDueDate(Date newDueDate);
+    void editDescription(const std::string& newDesc);
+    void editDueDate(const Date& newDueDate);
     std::string toString() const;       //Metodo per convertire gli attributi in un unica stringa
 };
 

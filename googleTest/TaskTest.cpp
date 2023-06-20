@@ -17,7 +17,7 @@ TEST(Task, ViewTaskTest){       //Test sulla corretta visualizzazione di un task
 TEST(Task, editDescriptionTest){        //Test sulla modifica della descrizione di un task
     Task t("prova", Date(10, 10, 2025), true);
     std::string s = "prova2";
-    t.editDescriprion(s);
+    t.editDescription(s);
     ASSERT_EQ(s, t.getDescription());
 }
 

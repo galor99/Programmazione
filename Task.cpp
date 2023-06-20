@@ -33,11 +33,11 @@ std::string Task::toString() const {        //Metodo per convertire gli attribut
     return ss.str();
 }
 
-void Task::editDescriprion(std::string& newDesc) {
-    description=newDesc;
+void Task::editDescription(const std::string& newDesc) {
+    description = newDesc;
 }
 
-void Task::editDueDate(Date newDueDate) {
+void Task::editDueDate(const Date& newDueDate) {
     dueDate = newDueDate;
 }
 
